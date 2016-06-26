@@ -9,8 +9,8 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: unicode
-  username: postgres
-  password: default
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
 
 development:
   <<: *default
