@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   delete 'sign_out' => 'authenticate#sign_out'
 
   get '/settings', to: 'settings#index'
+  get '/settings/account', to: 'settings#index'
   put '/settings/email', to: 'settings#put_email'
+  get '/settings/password', to: 'settings#password'
+  put '/settings/password', to: 'settings#change_password'
 end

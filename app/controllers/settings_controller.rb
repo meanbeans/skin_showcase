@@ -15,11 +15,27 @@ class SettingsController < ApplicationController
     end
   end
 
+  def password
+    @user = current_user
+  end
+
+  def change_password
+    if user_params[:password] == user_params[:password_confirmation]
+      if current_user.update_attributes!(user_params)
+        redirect_to settings_password_url
+      else
+      end
+    else
+    end
+  end
+
   private
 
     def user_params
       params.require(:user).permit(:email,
-                                   :email_confirmation)
+                                   :email_confirmation,
+                                   :password,
+                                   :password_confirmation)
     end
 
     def require_login
