@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   post 'signup_post', to: 'authenticate#signup_post'
   post 'signin_post', to: 'authenticate#signin_post'
   delete 'sign_out' => 'authenticate#sign_out'
+
+  get '/settings', to: 'settings#index'
+  put '/settings/email', to: 'settings#put_email'
 end
