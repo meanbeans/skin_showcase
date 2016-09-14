@@ -7,3 +7,13 @@
     </ul>
   </div>
 </div>
+<div class='row'>
+  <div class="twelve columns">
+    <h1>Reviews</h1>
+    <%- @reviews.each do |review| %>
+      <%- if review.id %>
+        <p><%= review.inspect %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
