@@ -27,7 +27,7 @@
 
         <%- @reviews.each do |review| %>
           <%- if review.id %>
-            <p><%= review.inspect %></p>
+            <%= render partial: 'layouts/partials/review', locals: { review: review } %>
           <% end %>
         <% end %>
       </div>
