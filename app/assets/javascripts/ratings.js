@@ -26,7 +26,6 @@ $(document).ready(function() {
   };
   Rating.discolorStars = function() {
     Rating.all.forEach(function(r) {
-      console.log(r);
       $(r.$selector).removeClass('rating-star-hover');
     });
   };
@@ -65,7 +64,6 @@ $(document).ready(function() {
       }
     });
   };
-
   Rating.prototype.onClick = function() {
     var self = this;
     $(self.$selector).on('click', function() {
