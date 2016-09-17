@@ -4,10 +4,31 @@ $(document).ready(function() {
     this.$selector = object.selector
   }
 
+  Rating.rated = { status: false, number: 0 };
   Rating.all = [];
   Rating.getIndexFromClassName = function(selector) {
     // example class name: "rating-star sr-1"
     return $(selector).attr('class').split(' ')[1].split('-')[1];
+  };
+  Rating.rate = function(number) {
+    Rating.rated.status = true;
+    Rating.rated.number = number;
+  };
+  Rating.restoreRating = function() {
+    Rating.colorStars(Rating.rated.number);
+  };
+  Rating.colorStars = function(number) {
+    Rating.all.forEach(function(r) {
+      if (r.number <= number) {
+        $(r.$selector).addClass('rating-star-hover');
+      }
+    });
+  };
+  Rating.discolorStars = function() {
+    Rating.all.forEach(function(r) {
+      console.log(r);
+      $(r.$selector).removeClass('rating-star-hover');
+    });
   };
   Rating.initialize = function() {
     var classIndex, ratingObject, rating;
@@ -23,30 +44,37 @@ $(document).ready(function() {
   };
 
   Rating.prototype.initialize = function() {
-    this.colorStars();
-    this.discolorStars();
+    this.onHover();
+    this.offHover();
+    this.onClick();
   };
-  Rating.prototype.colorStars = function() {
-    var currentIndex;
+  Rating.prototype.onHover = function() {
     var self = this;
     $(self.$selector).on('mouseenter', function() {
-      Rating.all.forEach(function(r) {
-        if (r.number <= self.number) {
-          $(r.$selector).addClass('rating-star-hover');
-        }
-      });
+      Rating.discolorStars();
+      Rating.colorStars(self.number);
     });
   };
-  Rating.prototype.discolorStars = function() {
-    var currentIndex;
+  Rating.prototype.offHover = function() {
     var self = this;
     $(self.$selector).on('mouseleave', function() {
-      Rating.all.forEach(function(r) {
-        if (r.number <= self.number) {
-          $(r.$selector).removeClass('rating-star-hover');
-        }
-      });
+      Rating.discolorStars();
+
+      if (Rating.rated.status) {
+        Rating.restoreRating();
+      }
     });
+  };
+
+  Rating.prototype.onClick = function() {
+    var self = this;
+    $(self.$selector).on('click', function() {
+      Rating.rate(self.number);
+      self.save();
+    });
+  };
+  Rating.prototype.save = function() {
+
   };
 
   Rating.initialize();
