@@ -30,6 +30,12 @@ $(document).on('turbolinks:load', function() {
       $(r.$selector).removeClass('rating-star-hover');
     });
   };
+  Rating.basedOnDb = function() {
+    if (GLOBAL.rating) {
+      Rating.rate(GLOBAL.rating.score);
+      Rating.colorStars(GLOBAL.rating.score);
+    }
+  };
   Rating.initialize = function() {
     var classIndex, ratingObject, rating;
     var ratings = [];
@@ -41,6 +47,7 @@ $(document).on('turbolinks:load', function() {
       ratings.push(rating);
     });
     Rating.all = ratings;
+    Rating.basedOnDb();
   };
 
   Rating.prototype.initialize = function() {

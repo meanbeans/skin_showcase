@@ -43,4 +43,11 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  def ratings_for(skin)
+    ratings.select do |r|
+      r.skin_id == skin.id
+    end
+      .first
+  end
 end
