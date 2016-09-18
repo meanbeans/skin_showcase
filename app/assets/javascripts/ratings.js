@@ -1,7 +1,8 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   var Rating = function(object) {
     this.number = parseInt(object.number);
-    this.$selector = object.selector
+    this.skin_id = GLOBAL.skinId;
+    this.$selector = object.selector;
   }
 
   Rating.rated = { status: false, number: 0 };
@@ -72,7 +73,15 @@ $(document).ready(function() {
     });
   };
   Rating.prototype.save = function() {
-
+    var self = this;
+    $.ajax({
+      method: 'POST',
+      url: "/ratings",
+      data: { rating: { score: self.number, skin_id: self.skin_id } }
+    })
+      .done(function(msg) {
+        console.log("Data Saved: " + msg);
+      });
   };
 
   Rating.initialize();
