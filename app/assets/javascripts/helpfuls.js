@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
   var Helpful = function(object) {
     this.reviewId = object.reviewId;
-    this.upvote = null; // will be 0 or 1
+    this.upvote = object.upvote;
     this.$selector = object.selector;
   }
 

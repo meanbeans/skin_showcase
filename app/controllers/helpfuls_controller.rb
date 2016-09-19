@@ -5,7 +5,7 @@ class HelpfulsController < ApplicationController
     return if my_helpful_exists?
 
     @helpful = Helpful.new(helpful_params)
-    @helpful.user_id = current_user
+    @helpful.user_id = current_user.id
 
     if @helpful.save
       render json: @helpful
@@ -18,7 +18,7 @@ class HelpfulsController < ApplicationController
 
     def helpful_params
       params[:helpful][:upvote] = params[:helpful][:upvote].to_i
-      params.require(:helpful).permit(:review_id, :upvote)
+      params.require(:helpful).permit(:review_id, :upvote, :user_id)
     end
 
     def require_login
@@ -33,3 +33,4 @@ class HelpfulsController < ApplicationController
       Helpful.find_by(helpful_hash)
     end
 end
+# Review.find_by({ skin_id: review_params[:skin_id], user_id: current_user.id })
