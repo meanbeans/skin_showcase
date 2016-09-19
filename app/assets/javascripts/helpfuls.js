@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function() {
       dataParsed = Helpful.dataParse(this);
       helpful_object = {
         reviewId: dataParsed.reviewId,
-        upvote: dataParsed.upvote,
+        upvote: parseInt(dataParsed.upvote, 10),
         selector: this
       };
       helpful = new Helpful(helpful_object);
@@ -31,7 +31,6 @@ $(document).on('turbolinks:load', function() {
   };
   Helpful.prototype.onClick = function() {
     var self = this;
-    console.log(self.$selector)
     $(self.$selector).on('click', function() {
       self.thankUser();
       self.save();
@@ -43,7 +42,15 @@ $(document).on('turbolinks:load', function() {
     $(self.$selector).parent().next().removeClass('hide');
   };
   Helpful.prototype.save = function() {
-
+    var self = this;
+    $.ajax({
+      method: 'POST',
+      url: "/helpfuls",
+      data: { helpful: { review_id: self.reviewId, upvote: self.upvote } }
+    })
+      .done(function(msg) {
+        console.log("Data Saved: " + msg);
+      });
   };
 
   Helpful.initialize();
