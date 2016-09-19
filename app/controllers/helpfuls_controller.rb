@@ -33,4 +33,3 @@ class HelpfulsController < ApplicationController
       Helpful.find_by(helpful_hash)
     end
 end
-# Review.find_by({ skin_id: review_params[:skin_id], user_id: current_user.id })
