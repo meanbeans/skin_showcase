@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   resources :ratings
   resources :helpfuls
   resources :ownits
+  resources :wantits
 end
