@@ -9,13 +9,23 @@
 </div>
 <div class='row'>
   <div class="twelve columns">
-    <h1>Reviews</h1>
+    <h1>Reviews and Ratings</h1>
     <%- @reviews.each do |review| %>
-      <%- if review.rating %>
-        <%= review.rating.inspect %>
-      <% end %>
       <%- if review.id %>
         <%= render partial: 'layouts/partials/review', locals: { review: review } %>
+      <% end %>
+    <% end %>
+
+    <%- @ratings.each do |rating| %>
+      <%- if rating.id && !rating.review_id %>
+        <div class='static-small-rating-stars'>
+          <% rating.score.times do %>
+            <div class='static-small-rating-star-empty filled'></div>
+          <% end %>
+          <% (5 - rating.score).times do %>
+            <div class='static-small-rating-star-empty'></div>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </div>
