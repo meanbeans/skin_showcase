@@ -18,3 +18,6 @@
 
 # environment variables file
 .env
+
+# node
+node_modules
